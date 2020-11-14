@@ -9,12 +9,13 @@ using Dapper;
 using MayaBinance.Application.Configs;
 using MayaBinance.Application.Dtos.Identity;
 using MayaBinance.Domain;
+using MayaBinance.Shared.utils;
 using MediatR;
 using Microsoft.Data.SqlClient;
 
 namespace MayaBinance.Application.Queries.Identity
 {
-    public class GetUsersQueryHandler:IRequestHandler<GetUsersQuery,GetGeneralResponse<List<SimpleUserViewModel>>>
+    public class GetUsersQueryHandler:IRequestHandler<GetUsersQuery,QueryResponse<List<SimpleUserViewModel>>>
     {
         private readonly DatabaseConnection _connection;
 
@@ -24,12 +25,12 @@ namespace MayaBinance.Application.Queries.Identity
         }
 
 
-        public async Task<GetGeneralResponse<List<SimpleUserViewModel>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+        public async Task<QueryResponse<List<SimpleUserViewModel>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            using (var connection = new
+            await using (var connection = new
                 SqlConnection(_connection.ConnectionString))
             {
-                GetGeneralResponse<List<SimpleUserViewModel>> response;
+                QueryResponse<List<SimpleUserViewModel>> response;
                 try
                 {
                     connection.Open();
@@ -41,7 +42,7 @@ namespace MayaBinance.Application.Queries.Identity
                       FROM [MayaBinance].[identity].[Users]", new { });
                     var list = result.AsList();
                     response =new
-                        GetGeneralResponse<List<SimpleUserViewModel>>(list, list.Count,false, null);
+                        QueryResponse<List<SimpleUserViewModel>>(list, list.Count);
               
                 }
                 catch (Exception e)
@@ -52,7 +53,10 @@ namespace MayaBinance.Application.Queries.Identity
 
 
                     response= new
-                        GetGeneralResponse<List<SimpleUserViewModel>>(null, 0,true, e.Message);
+                        QueryResponse<List<SimpleUserViewModel>>(null, 0)
+                        {
+                            ErrorMessage = ExceptionHandler.GetError(e)
+                    };
                 }
 
                 return response;

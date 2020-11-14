@@ -8,7 +8,7 @@ using MediatR;
 
 namespace MayaBinance.Application.Queries.Identity
 {
-    public class GetUsersQuery:IRequest<GetGeneralResponse<List<SimpleUserViewModel>>>
+    public class GetUsersQuery:IRequest<QueryResponse<List<SimpleUserViewModel>>>
     {
 
     }

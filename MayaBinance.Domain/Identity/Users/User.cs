@@ -1,4 +1,5 @@
 ﻿using System;
+using MayaBinance.Domain.Identity.Users.DomainEvents;
 using MayaBinance.Domain.SeedWork;
 using MayaBinance.Domain.ValueObjects;
 
@@ -6,7 +7,10 @@ namespace MayaBinance.Domain.Identity.Users
 {
     public class User : AggregateRoot<Guid, User>
     {
-        protected User(){}
+        protected User()
+        {
+            var x = 's';
+        }
         public User(string firstName, string lastname, string emailOrUserName,
             string password, Address address)
         {
@@ -15,6 +19,7 @@ namespace MayaBinance.Domain.Identity.Users
             EmailOrUserName = emailOrUserName;
             Password = password;
             Address = address;
+            UserCreated();
         }
 
         public string FirstName { get; }
@@ -22,6 +27,11 @@ namespace MayaBinance.Domain.Identity.Users
         public string EmailOrUserName { get; }
         public string Password { get; }
         public Address Address { get;  }
+
+        private void UserCreated()
+        {
+            AddEvent(new UserCreatedEvent(FirstName,LastName, EmailOrUserName,Password,Address));
+        }
 
     }
 }

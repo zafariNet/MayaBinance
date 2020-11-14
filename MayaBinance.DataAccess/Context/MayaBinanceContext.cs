@@ -92,7 +92,7 @@ namespace MayaBinance.DataAccess.Context
             {
                 var result=await base.SaveChangesAsync(cancellationToken);
                 if(result>=1)
-                    return Result.Success(0);
+                    return Result.Success("");
                 return Result.Failure("");
             }
             catch (Exception e)

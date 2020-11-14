@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
+using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Mvc;
 using MayaBinance.Application.Commands.Identity.Users;
 using MayaBinance.Application.Dtos.Identity;
 using MayaBinance.Application.Queries.Identity;
+using MayaBinance.Domain;
 using MayaBinance.Domain.Identity.Users;
 using MediatR;
 
@@ -27,7 +29,7 @@ namespace MayaBinance.Api.Controllers.Identity
         {
             var getUserQuery=new GetUsersQuery();
             var result =await _mediator.Send(getUserQuery);
-            return GeneralResponse(result);
+            return GenerateResponse(result);
         }
 
         [HttpPost]
@@ -37,7 +39,7 @@ namespace MayaBinance.Api.Controllers.Identity
             var command = new CreateUserCommand(request.FirstName, request.LastName,
                 request.EmailOrUserName, request.Password, null);
             var result = await _mediator.Send(command);
-            return Ok(result);
+            return GenerateResponse(result);
 
         }
     }

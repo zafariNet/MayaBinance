@@ -8,14 +8,20 @@ namespace MayaBinance.Api
     public class BaseController: ControllerBase
     {
 
-        public IActionResult GeneralResponse<TType>(GetGeneralResponse<TType> result)
+        public IActionResult GenerateResponse<TType>(QueryResponse<TType> result)
         {
             if (result.HasError)
                 return BadRequest(result);
-
             return Ok(result);
         }
-    
+
+        public IActionResult GenerateResponse(Result<CommandResponse> result)
+        {
+            
+            if (result.IsSuccess)
+                return Ok();
+            return BadRequest(result.Value);
+        }
   
     }
 }

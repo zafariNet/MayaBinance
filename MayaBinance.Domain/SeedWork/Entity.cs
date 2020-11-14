@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using MediatR;
 
 namespace MayaBinance.Domain.SeedWork
 {
@@ -14,6 +16,24 @@ namespace MayaBinance.Domain.SeedWork
 
         }
 
+        private List<INotification> _domainEvents;
+        public IReadOnlyCollection<INotification> Events => _domainEvents?.AsReadOnly();
+
+        public void AddEvent(INotification notification)
+        {
+            _domainEvents ??= new List<INotification>();
+            _domainEvents.Add(notification);
+        }
+
+        public void RemoveEvent(INotification notification)
+        {
+            _domainEvents?.Remove(notification);
+        }
+
+        public void CLearEvent()
+        {
+            _domainEvents?.Clear();
+        }
         protected Entity(TKey id)
         {
             Id = id;

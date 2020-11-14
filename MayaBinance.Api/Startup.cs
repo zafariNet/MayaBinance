@@ -12,6 +12,7 @@ using MayaBinance.DataAccess.Repositories.Identity;
 using MayaBinance.Domain.Identity.Users;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace MayaBinance.Api
 {
@@ -40,6 +41,12 @@ namespace MayaBinance.Api
             {
                 conf.RegisterValidatorsFromAssemblyContaining<CQRS>();
             });
+            services.AddLogging(config =>
+            {
+                config.AddDebug();
+                config.AddConsole();
+                //etc
+            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -49,7 +56,7 @@ namespace MayaBinance.Api
             }
 
             app.UseHttpsRedirection();
-
+            
             app.UseRouting();
 
             app.UseAuthorization();
