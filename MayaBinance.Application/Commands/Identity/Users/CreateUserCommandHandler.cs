@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
 using MayaBinance.Domain;
 using MayaBinance.Domain.Identity.Users;
-using MayaBinance.Domain.Identity.Users.DomainEvents;
 using MediatR;
 
 namespace MayaBinance.Application.Commands.Identity.Users

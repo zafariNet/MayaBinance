@@ -1,5 +1,4 @@
-﻿using System;
-using CSharpFunctionalExtensions;
+﻿using CSharpFunctionalExtensions;
 using MayaBinance.Domain;
 using Microsoft.AspNetCore.Mvc;
 

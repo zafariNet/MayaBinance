@@ -1,10 +1,8 @@
 ﻿using System.Threading.Tasks;
-using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Mvc;
 using MayaBinance.Application.Commands.Identity.Users;
 using MayaBinance.Application.Dtos.Identity;
 using MayaBinance.Application.Queries.Identity;
-using MayaBinance.Domain;
 using MayaBinance.Domain.Identity.Users;
 using MediatR;
 

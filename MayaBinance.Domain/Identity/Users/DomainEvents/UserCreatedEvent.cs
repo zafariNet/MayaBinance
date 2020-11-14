@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MayaBinance.Domain.ValueObjects;
-using MayaBinance.Shared.Extensions;
+﻿using MayaBinance.Domain.ValueObjects;
 using MediatR;
 
 namespace MayaBinance.Domain.Identity.Users.DomainEvents

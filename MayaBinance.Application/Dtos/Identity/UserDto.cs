@@ -1,6 +1,5 @@
 ﻿using System;
 using MayaBinance.Domain.ValueObjects;
-using Microsoft.EntityFrameworkCore;
 
 namespace MayaBinance.Application.Dtos.Identity
 {
