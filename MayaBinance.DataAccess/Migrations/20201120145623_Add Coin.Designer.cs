@@ -3,13 +3,17 @@ using System;
 using MayaBinance.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MayaBinance.DataAccess.Migrations
 {
     [DbContext(typeof(MayaBinanceContext))]
-    partial class MayaBinanceContextModelSnapshot : ModelSnapshot
+    [Migration("20201120145623_Add Coin")]
+    partial class AddCoin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,29 +28,9 @@ namespace MayaBinance.DataAccess.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Icon")
-                        .HasMaxLength(100)
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Symbol")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(100)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Coins", "Trade");
+                    b.ToTable("Coins");
                 });
 
             modelBuilder.Entity("MayaBinance.Domain.Identity.Users.User", b =>

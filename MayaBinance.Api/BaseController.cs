@@ -1,4 +1,5 @@
-﻿using CSharpFunctionalExtensions;
+﻿using System.Threading.Tasks;
+using CSharpFunctionalExtensions;
 using MayaBinance.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,12 @@ namespace MayaBinance.Api
                 return BadRequest(result);
             return Ok(result);
         }
-
+        public IActionResult GenerateResponse<TType>(Task<QueryResponse<TType>> result)
+        {
+            if (result.Result.HasError)
+                return BadRequest(result);
+            return Ok(result);
+        }
         public IActionResult GenerateResponse(Result<CommandResponse> result)
         {
             

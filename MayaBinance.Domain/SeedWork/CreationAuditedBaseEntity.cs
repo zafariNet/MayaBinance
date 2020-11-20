@@ -3,7 +3,7 @@
 namespace MayaBinance.Domain.SeedWork
 {
     [Serializable]
-    public abstract class CreationAuditedEntity<TType, TCreator> : Entity<TType>, 
+    public abstract class CreationAuditedBaseEntity<TType, TCreator> : BaseEntity<TType>, 
         ICreationAuditedObject<TCreator>
     {
         public TCreator Creator { get; set; }

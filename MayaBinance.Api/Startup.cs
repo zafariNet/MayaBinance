@@ -4,11 +4,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using AutoMapper;
 using FluentValidation.AspNetCore;
 using MayaBinance.Application;
 using MayaBinance.Application.Configs;
+using MayaBinance.Application.ModelMappers;
 using MayaBinance.DataAccess.Context;
+using MayaBinance.DataAccess.Infrastructures;
+using MayaBinance.DataAccess.Repositories.BaseModels;
+using MayaBinance.DataAccess.Repositories.BaseModels.Interfaces;
 using MayaBinance.DataAccess.Repositories.Identity;
+using MayaBinance.DataAccess.Repositories.Identity.Interfaces;
 using MayaBinance.Domain.Identity.Users;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -34,10 +40,14 @@ namespace MayaBinance.Api
                 options.UseSqlServer(Configuration["ConnectionString"]);
             });
             services.AddSingleton(connectionString);
+            services.AddAutoMapper(typeof(AutoMapperBase));
             services.AddMediatR(typeof(CQRS).GetTypeInfo().Assembly);
-            services.AddScoped<IUserRepository, UserRepository>();
-
-            services.AddControllers().AddFluentValidation(conf =>
+            services.AddTransient<IUnitOfWork, MayaBinanceContext>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICoinRepository, CoinRepository>();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            ).AddFluentValidation(conf =>
             {
                 conf.RegisterValidatorsFromAssemblyContaining<CQRS>();
             });

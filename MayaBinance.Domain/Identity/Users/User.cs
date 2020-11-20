@@ -9,7 +9,6 @@ namespace MayaBinance.Domain.Identity.Users
     {
         protected User()
         {
-            var x = 's';
         }
         public User(string firstName, string lastname, string emailOrUserName,
             string password, Address address)

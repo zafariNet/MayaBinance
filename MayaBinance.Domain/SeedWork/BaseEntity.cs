@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CSharpFunctionalExtensions;
 using MediatR;
 
 namespace MayaBinance.Domain.SeedWork
@@ -7,11 +8,10 @@ namespace MayaBinance.Domain.SeedWork
 
 
     [Serializable]
-    public abstract class Entity<TKey> :IEntity<TKey>
+    public abstract class BaseEntity<TKey> :Entity<TKey>, IEntity<TKey>
     {
-        public TKey Id { get; protected set; }
         public byte[] RowVersion { get; set; }
-        protected Entity()
+        protected BaseEntity()
         {
 
         }
@@ -34,7 +34,7 @@ namespace MayaBinance.Domain.SeedWork
         {
             _domainEvents?.Clear();
         }
-        protected Entity(TKey id)
+        protected BaseEntity(TKey id)
         {
             Id = id;
         }

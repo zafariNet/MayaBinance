@@ -9,14 +9,14 @@ namespace MayaBinance.Domain
     }
     public class QueryResponse<T>:IResponse
     {
-        public T Result { get; set; }
-        public bool HasError => string.IsNullOrEmpty(ErrorMessage);
+        public T Data { get; set; }
+        public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
         public DateTime TimeGenerated { get; }
 
         public int TotalCount { get; set; }
-        public QueryResponse(T result,int totalCount)
+        public QueryResponse(T data,int totalCount)
         {
-            Result = result;
+            Data = data;
             TimeGenerated = DateTime.UtcNow;
             TotalCount = totalCount;
         }

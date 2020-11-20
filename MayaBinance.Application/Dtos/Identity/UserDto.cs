@@ -1,4 +1,5 @@
 ﻿using System;
+using MayaBinance.Domain.SeedWork;
 using MayaBinance.Domain.ValueObjects;
 
 namespace MayaBinance.Application.Dtos.Identity

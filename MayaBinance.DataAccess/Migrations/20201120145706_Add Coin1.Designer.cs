@@ -3,13 +3,17 @@ using System;
 using MayaBinance.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MayaBinance.DataAccess.Migrations
 {
     [DbContext(typeof(MayaBinanceContext))]
-    partial class MayaBinanceContextModelSnapshot : ModelSnapshot
+    [Migration("20201120145706_Add Coin1")]
+    partial class AddCoin1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

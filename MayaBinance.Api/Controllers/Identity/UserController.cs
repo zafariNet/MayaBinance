@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MayaBinance.Application.Commands.Identity.Users;
 using MayaBinance.Application.Dtos.Identity;
 using MayaBinance.Application.Queries.Identity;
+using MayaBinance.DataAccess.Repositories.Identity.Interfaces;
 using MayaBinance.Domain.Identity.Users;
 using MediatR;
 
@@ -12,12 +13,10 @@ namespace MayaBinance.Api.Controllers.Identity
     [ApiController]
     public class UserController : BaseController
     {
-        private readonly IUserRepository _baseRepository;
 
         private readonly IMediator _mediator;
         public UserController(IUserRepository baseRepository, IMediator mediator)
         {
-            _baseRepository = baseRepository;
             _mediator = mediator;
         }
 

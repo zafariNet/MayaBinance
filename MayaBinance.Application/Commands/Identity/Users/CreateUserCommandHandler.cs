@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
+using MayaBinance.DataAccess.Repositories.Identity.Interfaces;
 using MayaBinance.Domain;
 using MayaBinance.Domain.Identity.Users;
 using MediatR;
@@ -10,12 +11,12 @@ namespace MayaBinance.Application.Commands.Identity.Users
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Result<CommandResponse>>
     {
-        private readonly IUserRepository _baseRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IMediator _mediator;
 
-        public CreateUserCommandHandler(IUserRepository baseRepository, IMediator mediator)
+        public CreateUserCommandHandler(IUserRepository userRepository, IMediator mediator)
         {
-            _baseRepository = baseRepository;
+            _userRepository = userRepository;
             _mediator = mediator;
         }
 
@@ -27,14 +28,14 @@ namespace MayaBinance.Application.Commands.Identity.Users
                 var user = new User(request.FirstName, request.LastName, request.EmailOrUserName,
                     request.Password, null);
 
-                _baseRepository.Insert(user);
+                _userRepository.Insert(user);
 
-                var result = await _baseRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+                var result = await _userRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
                 foreach (var notification in user.Events)
                 {
                     await _mediator.Publish(notification, cancellationToken);
                 }
-                return Result.Success<CommandResponse>(new CommandResponse());
+                return Result.Success(new CommandResponse());
             }
             catch (Exception e)
             {

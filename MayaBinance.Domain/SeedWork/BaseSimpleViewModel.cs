@@ -1,4 +1,4 @@
-﻿namespace MayaBinance.Application.Dtos
+﻿namespace MayaBinance.Domain.SeedWork
 {
     public class BaseSimpleViewModel<TKey>
     {

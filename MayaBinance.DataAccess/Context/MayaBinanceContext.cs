@@ -3,11 +3,14 @@ using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
+using MayaBinance.DataAccess.ModelConfigurations.BaseModels;
 using MayaBinance.DataAccess.ModelConfigurations.Identity;
+using MayaBinance.Domain.BaseModels;
 using MayaBinance.Domain.Identity.Users;
 using MayaBinance.Domain.SeedWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using IUnitOfWork = MayaBinance.DataAccess.Infrastructures.IUnitOfWork;
 
 namespace MayaBinance.DataAccess.Context
 {
@@ -16,7 +19,7 @@ namespace MayaBinance.DataAccess.Context
         public const string DEFAULT_SCHEMA = "Ordering";
         private IDbContextTransaction _currentTransaction;
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Coin> Coins { get; set; }
         public MayaBinanceContext(DbContextOptions<MayaBinanceContext> options) :
             base(options)
         {
@@ -27,6 +30,7 @@ namespace MayaBinance.DataAccess.Context
         {
             modelBuilder.ApplyConfiguration(new
                 UserConfig());
+            modelBuilder.ApplyConfiguration(new CoinConfiguration());
 
         }
         public IDbContextTransaction GetCurrentTransaction() =>

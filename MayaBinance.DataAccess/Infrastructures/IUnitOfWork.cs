@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
 
-namespace MayaBinance.Domain.SeedWork
+namespace MayaBinance.DataAccess.Infrastructures
 {
 
     public interface IUnitOfWork : IDisposable
